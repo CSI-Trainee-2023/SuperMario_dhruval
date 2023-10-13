@@ -86,20 +86,87 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./assets/background.jpg":
+/*!*******************************!*\
+  !*** ./assets/background.jpg ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "253c1ef4569f0b19aaabb6fcb27c6781.jpg");
+
+/***/ }),
+
+/***/ "./assets/jumpingPlatform.png":
+/*!************************************!*\
+  !*** ./assets/jumpingPlatform.png ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "c6256f39bc867245069a55dd6e756bd1.png");
+
+/***/ }),
+
+/***/ "./assets/runningPlatform.png":
+/*!************************************!*\
+  !*** ./assets/runningPlatform.png ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "13c11cd2bce3530fd568a1a1b80eb6de.png");
+
+/***/ }),
+
+/***/ "./assets/tree.png":
+/*!*************************!*\
+  !*** ./assets/tree.png ***!
+  \*************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "4e4323671eb01f74cb740bd26aad737f.png");
+
+/***/ }),
+
 /***/ "./src/js/canvas.js":
 /*!**************************!*\
   !*** ./src/js/canvas.js ***!
   \**************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _assets_runningPlatform_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../assets/runningPlatform.png */ "./assets/runningPlatform.png");
+/* harmony import */ var _assets_jumpingPlatform_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../assets/jumpingPlatform.png */ "./assets/jumpingPlatform.png");
+/* harmony import */ var _assets_background_jpg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/background.jpg */ "./assets/background.jpg");
+/* harmony import */ var _assets_tree_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../assets/tree.png */ "./assets/tree.png");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+
+
+
 var canvas = document.querySelector("canvas");
+
+// window.addEventListener('scroll', () => {
+//   window.scrollTo(0, 0); // Scroll back to the top of the page
+// });
+
 var c = canvas.getContext("2d");
 // console.log(c);
 canvas.width = window.innerWidth;
@@ -135,7 +202,7 @@ var Player = /*#__PURE__*/function () {
       this.draw();
       this.position.x += this.velocity.x;
       this.position.y += this.velocity.y;
-      if (this.position.y + this.height + this.velocity.y <= canvas.height) this.velocity.y += gravity;else this.velocity.y = 0;
+      if (this.position.y + this.height + this.velocity.y <= canvas.height - 10) this.velocity.y += gravity;else this.velocity.y = 0;
     }
   }]);
   return Player;
@@ -143,31 +210,72 @@ var Player = /*#__PURE__*/function () {
 var Platform = /*#__PURE__*/function () {
   function Platform(_ref) {
     var x = _ref.x,
-      y = _ref.y;
+      y = _ref.y,
+      image = _ref.image;
     _classCallCheck(this, Platform);
     this.position = {
       x: x,
-      y: y
+      y: y,
+      image: image
     };
-    this.width = 200;
-    this.height = 20;
+    this.width = 500;
+    this.height = 100;
+    this.image = image;
   }
   _createClass(Platform, [{
     key: "draw",
     value: function draw() {
-      c.fillRect(this.position.x, this.position.y, this.width, this.height);
+      c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
     }
   }]);
   return Platform;
 }();
+var GenericObject = /*#__PURE__*/function () {
+  function GenericObject(_ref2) {
+    var x = _ref2.x,
+      y = _ref2.y,
+      image = _ref2.image;
+    _classCallCheck(this, GenericObject);
+    this.position = {
+      x: x,
+      y: y
+    };
+    this.width = 1600;
+    this.height = window.innerHeight;
+    this.image = image;
+  }
+  _createClass(GenericObject, [{
+    key: "draw",
+    value: function draw() {
+      c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
+    }
+  }]);
+  return GenericObject;
+}();
+function createImage(imageSrc) {
+  var image = new Image();
+  image.src = imageSrc;
+  return image;
+}
 var player = new Player();
 //to create multiple platforms
 var platforms = [new Platform({
-  x: 200,
-  y: 100
+  x: 0,
+  y: 680,
+  image: createImage(_assets_runningPlatform_png__WEBPACK_IMPORTED_MODULE_0__["default"])
 }), new Platform({
-  x: 600,
-  y: 100
+  x: 700,
+  y: 680,
+  image: createImage(_assets_runningPlatform_png__WEBPACK_IMPORTED_MODULE_0__["default"])
+})];
+var genericObjects = [new GenericObject({
+  x: 0,
+  y: 0,
+  image: createImage(_assets_background_jpg__WEBPACK_IMPORTED_MODULE_2__["default"])
+}), new GenericObject({
+  x: 0,
+  y: 0,
+  image: createImage(_assets_tree_png__WEBPACK_IMPORTED_MODULE_3__["default"])
 })];
 var keys = {
   right: {
@@ -182,12 +290,16 @@ var scrollOffset = 0;
 //to loop the gravity
 function animate() {
   requestAnimationFrame(animate);
+  c.fillStyle = 'white';
   //to clear the previos position of player
-  c.clearRect(0, 0, canvas.width, canvas.height);
-  player.update();
+  c.fillRect(0, 0, canvas.width, canvas.height);
+  genericObjects.forEach(function (genericObject) {
+    genericObject.draw();
+  });
   platforms.forEach(function (platform) {
     platform.draw();
   });
+  player.update();
 
   //for smooth movement
   if (keys.right.pressed && player.position.x < 800) {
@@ -202,10 +314,16 @@ function animate() {
     platforms.forEach(function (platform) {
       platform.position.x -= 5;
     });
+    genericObjects.forEach(function (GenericObject) {
+      GenericObject.position.x -= 3;
+    });
   } else if (keys.left.pressed) {
     scrollOffset -= 5;
     platforms.forEach(function (platform) {
       platform.position.x += 5;
+    });
+    genericObjects.forEach(function (GenericObject) {
+      GenericObject.position.x += 3;
     });
   }
 
