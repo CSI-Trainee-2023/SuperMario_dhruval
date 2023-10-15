@@ -470,13 +470,13 @@ var genericObjects = [new GenericObject({
   x: 0,
   y: 0,
   width: 1600,
-  height: 700,
+  height: 750,
   image: createImage(_assets_tree_png__WEBPACK_IMPORTED_MODULE_3__["default"])
 }), new GenericObject({
   x: 1800,
   y: 0,
   width: 1600,
-  height: 700,
+  height: 750,
   image: createImage(_assets_tree_png__WEBPACK_IMPORTED_MODULE_3__["default"])
 })];
 var stars = [new Star({
@@ -867,9 +867,9 @@ function animate() {
   //for smooth movement
   if (playerCanMove && scrollOffset < 6800) {
     if (keys.right.pressed && player.position.x < 400) {
-      player.velocity.x = 20;
+      player.velocity.x = 5;
     } else if (keys.left.pressed && player.position.x > 100 || keys.left.pressed && scrollOffset === 0 && player.position.x > 0) {
-      player.velocity.x = -20;
+      player.velocity.x = -5;
     } else {
       player.velocity.x = 0;
     }
