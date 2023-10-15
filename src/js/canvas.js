@@ -14,6 +14,7 @@ const canvas = document.querySelector("canvas");
 const backgroundImg = createImage(background);
 const c = canvas.getContext("2d");
 const gravity = 0.98;
+const youWinSection = document.getElementById("you-win-container");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -725,37 +726,37 @@ function animate() {
   c.fillText("Score: " + score, 20, 40);
 
   //for smooth movement
-  if (playerCanMove) {
+  if (playerCanMove && scrollOffset < 6800) {
     if (keys.right.pressed && player.position.x < 400) {
-      player.velocity.x = 5;
+      player.velocity.x = 20;
     } else if (
       (keys.left.pressed && player.position.x > 100) ||
       (keys.left.pressed && scrollOffset === 0 && player.position.x > 0)
     ) {
-      player.velocity.x = -5;
+      player.velocity.x = -20;
     } else {
       player.velocity.x = 0;
     }
-  }
 
-  if (keys.right.pressed) {
-    scrollOffset += 5;
-    platforms.forEach((platform) => {
-      platform.position.x -= 5;
-    });
+    if (keys.right.pressed) {
+      scrollOffset += 5;
+      platforms.forEach((platform) => {
+        platform.position.x -= 5;
+      });
 
-    genericObjects.forEach((genericObject) => {
-      genericObject.position.x -= 3;
-    });
-  } else if (keys.left.pressed && scrollOffset > 0) {
-    scrollOffset -= 5;
+      genericObjects.forEach((genericObject) => {
+        genericObject.position.x -= 3;
+      });
+    } else if (keys.left.pressed && scrollOffset > 0) {
+      scrollOffset -= 5;
 
-    platforms.forEach((platform) => {
-      platform.position.x += 5;
-    });
-    genericObjects.forEach((genericObject) => {
-      genericObject.position.x += 3;
-    });
+      platforms.forEach((platform) => {
+        platform.position.x += 5;
+      });
+      genericObjects.forEach((genericObject) => {
+        genericObject.position.x += 3;
+      });
+    }
   }
 
   //to stop the falling of player on the platform
@@ -772,11 +773,22 @@ function animate() {
     }
   });
 
+  console.log(scrollOffset);
+
   //to create win scenerio
   if (scrollOffset == 6800) {
     playerCanMove = false;
+    // playAgainButton.style.display = "none";
     playerWinsGame(score);
-    alert('ww')
+    youWinSection.style.display = "block";
+
+    // Display the current and highest scores
+    const currentScoreElement = document.getElementById("current-score");
+    currentScoreElement.textContent = score;
+
+    const highestScoreElement = document.getElementById("highest-score");
+    const highScore = getHighScore();
+    highestScoreElement.textContent =  highScore;
   }
 
   // to create lose scenerio
@@ -847,4 +859,13 @@ addEventListener("keyup", (event) => {
       //down
       break;
   }
+});
+
+const playAgainButton = document.getElementById("play-again-button");
+playAgainButton.addEventListener("click", () => {
+  // Reset the game when the "Play Again" button is clicked
+  youWinSection.style.display = "none"; // Hide the "You Win" section
+  playerCanMove = true; // Allow player movement again
+  alert('playagain')
+  init(); // Reset the game
 });
