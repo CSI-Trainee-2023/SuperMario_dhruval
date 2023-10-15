@@ -164,6 +164,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./assets/rocket.png":
+/*!***************************!*\
+  !*** ./assets/rocket.png ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "8b5e914322d63079ed1e7d725abb0749.png");
+
+/***/ }),
+
 /***/ "./assets/runningPlatform.png":
 /*!************************************!*\
   !*** ./assets/runningPlatform.png ***!
@@ -217,10 +230,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_background_jpg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/background.jpg */ "./assets/background.jpg");
 /* harmony import */ var _assets_tree_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../assets/tree.png */ "./assets/tree.png");
 /* harmony import */ var _assets_star_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../assets/star.png */ "./assets/star.png");
-/* harmony import */ var _assets_mariorunRight_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../assets/mariorunRight.png */ "./assets/mariorunRight.png");
-/* harmony import */ var _assets_mariorunLeft_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../assets/mariorunLeft.png */ "./assets/mariorunLeft.png");
-/* harmony import */ var _assets_mariostandingRight_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../assets/mariostandingRight.png */ "./assets/mariostandingRight.png");
-/* harmony import */ var _assets_mariostandingLeft_png__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../assets/mariostandingLeft.png */ "./assets/mariostandingLeft.png");
+/* harmony import */ var _assets_rocket_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../assets/rocket.png */ "./assets/rocket.png");
+/* harmony import */ var _assets_mariorunRight_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../assets/mariorunRight.png */ "./assets/mariorunRight.png");
+/* harmony import */ var _assets_mariorunLeft_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../assets/mariorunLeft.png */ "./assets/mariorunLeft.png");
+/* harmony import */ var _assets_mariostandingRight_png__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../assets/mariostandingRight.png */ "./assets/mariostandingRight.png");
+/* harmony import */ var _assets_mariostandingLeft_png__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../assets/mariostandingLeft.png */ "./assets/mariostandingLeft.png");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
@@ -236,17 +250,13 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 
 
 
+
 var canvas = document.querySelector("canvas");
 var backgroundImg = createImage(_assets_background_jpg__WEBPACK_IMPORTED_MODULE_2__["default"]);
-// window.addEventListener('scroll', () => {
-//   window.scrollTo(0, 0); // Scroll back to the top of the page
-// });
-
 var c = canvas.getContext("2d");
-// console.log(c);
+var gravity = 0.98;
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-var gravity = 0.98;
 
 //Creating Player
 var Player = /*#__PURE__*/function () {
@@ -264,18 +274,18 @@ var Player = /*#__PURE__*/function () {
     this.width = 66;
     this.height = 150;
     this.isJumping = false;
-    this.image = createImage(_assets_mariostandingRight_png__WEBPACK_IMPORTED_MODULE_7__["default"]);
+    this.image = createImage(_assets_mariostandingRight_png__WEBPACK_IMPORTED_MODULE_8__["default"]);
     this.frames = 0;
     this.sprites = {
       stand: {
-        right: createImage(_assets_mariostandingRight_png__WEBPACK_IMPORTED_MODULE_7__["default"]),
-        left: createImage(_assets_mariostandingLeft_png__WEBPACK_IMPORTED_MODULE_8__["default"]),
+        right: createImage(_assets_mariostandingRight_png__WEBPACK_IMPORTED_MODULE_8__["default"]),
+        left: createImage(_assets_mariostandingLeft_png__WEBPACK_IMPORTED_MODULE_9__["default"]),
         cropWidth: 177,
         width: 66
       },
       run: {
-        right: createImage(_assets_mariorunRight_png__WEBPACK_IMPORTED_MODULE_5__["default"]),
-        left: createImage(_assets_mariorunLeft_png__WEBPACK_IMPORTED_MODULE_6__["default"]),
+        right: createImage(_assets_mariorunRight_png__WEBPACK_IMPORTED_MODULE_6__["default"]),
+        left: createImage(_assets_mariorunLeft_png__WEBPACK_IMPORTED_MODULE_7__["default"]),
         cropWidth: 340,
         width: 127.875
       }
@@ -287,7 +297,7 @@ var Player = /*#__PURE__*/function () {
     key: "jump",
     value: function jump() {
       if (!this.isJumping) {
-        this.velocity.y = -23;
+        this.velocity.y = -24;
         this.isJumping = true;
       }
     }
@@ -411,22 +421,22 @@ var player = new Player();
 //to create multiple platforms
 var platforms = [new Platform({
   x: 0,
-  y: 680,
+  y: 700,
   image: createImage(_assets_runningPlatform_png__WEBPACK_IMPORTED_MODULE_0__["default"]),
   width: 1000
 }), new Platform({
   x: 1300,
-  y: 680,
+  y: 700,
   image: createImage(_assets_runningPlatform_png__WEBPACK_IMPORTED_MODULE_0__["default"]),
   width: 1000
 }), new Platform({
   x: 3200,
-  y: 680,
+  y: 700,
   image: createImage(_assets_runningPlatform_png__WEBPACK_IMPORTED_MODULE_0__["default"]),
   width: 2100
 }), new Platform({
-  x: 6000,
-  y: 680,
+  x: 5700,
+  y: 700,
   image: createImage(_assets_runningPlatform_png__WEBPACK_IMPORTED_MODULE_0__["default"]),
   width: 2100
 }), new Platform({
@@ -523,19 +533,19 @@ var stars = [new Star({
   height: 30,
   image: createImage(_assets_star_png__WEBPACK_IMPORTED_MODULE_4__["default"])
 }), new Star({
-  x: 3750,
-  y: 580,
-  width: 30,
-  height: 30,
-  image: createImage(_assets_star_png__WEBPACK_IMPORTED_MODULE_4__["default"])
-}), new Star({
-  x: 3800,
-  y: 580,
-  width: 30,
-  height: 30,
-  image: createImage(_assets_star_png__WEBPACK_IMPORTED_MODULE_4__["default"])
-}), new Star({
   x: 3850,
+  y: 580,
+  width: 30,
+  height: 30,
+  image: createImage(_assets_star_png__WEBPACK_IMPORTED_MODULE_4__["default"])
+}), new Star({
+  x: 4000,
+  y: 330,
+  width: 30,
+  height: 30,
+  image: createImage(_assets_star_png__WEBPACK_IMPORTED_MODULE_4__["default"])
+}), new Star({
+  x: 4250,
   y: 580,
   width: 30,
   height: 30,
@@ -553,23 +563,29 @@ var stars = [new Star({
   height: 30,
   image: createImage(_assets_star_png__WEBPACK_IMPORTED_MODULE_4__["default"])
 }), new Star({
-  x: 6550,
-  y: 580,
-  width: 30,
-  height: 30,
-  image: createImage(_assets_star_png__WEBPACK_IMPORTED_MODULE_4__["default"])
-}), new Star({
-  x: 6600,
-  y: 580,
+  x: 6450,
+  y: 330,
   width: 30,
   height: 30,
   image: createImage(_assets_star_png__WEBPACK_IMPORTED_MODULE_4__["default"])
 }), new Star({
   x: 6650,
-  y: 580,
+  y: 330,
   width: 30,
   height: 30,
   image: createImage(_assets_star_png__WEBPACK_IMPORTED_MODULE_4__["default"])
+}), new Star({
+  x: 6850,
+  y: 330,
+  width: 30,
+  height: 30,
+  image: createImage(_assets_star_png__WEBPACK_IMPORTED_MODULE_4__["default"])
+}), new Star({
+  x: 7350,
+  y: 300,
+  width: 320,
+  height: 400,
+  image: createImage(_assets_rocket_png__WEBPACK_IMPORTED_MODULE_5__["default"])
 })];
 var keys = {
   right: {
@@ -584,27 +600,35 @@ var keys = {
 };
 var scrollOffset = 0;
 var score = 0;
+var playerCanMove = true;
+function displayHighScore() {
+  var highScore = getHighScore();
+  var highScoreElement = document.getElementById("high-score");
+  if (highScoreElement) {
+    highScoreElement.textContent = "High Score: " + highScore;
+  }
+}
 function init() {
   player = new Player();
   //to create multiple platforms
   platforms = [new Platform({
     x: 0,
-    y: 680,
+    y: 700,
     image: createImage(_assets_runningPlatform_png__WEBPACK_IMPORTED_MODULE_0__["default"]),
     width: 1000
   }), new Platform({
     x: 1300,
-    y: 680,
+    y: 700,
     image: createImage(_assets_runningPlatform_png__WEBPACK_IMPORTED_MODULE_0__["default"]),
     width: 1000
   }), new Platform({
     x: 3200,
-    y: 680,
+    y: 700,
     image: createImage(_assets_runningPlatform_png__WEBPACK_IMPORTED_MODULE_0__["default"]),
     width: 2100
   }), new Platform({
-    x: 6000,
-    y: 680,
+    x: 5700,
+    y: 700,
     image: createImage(_assets_runningPlatform_png__WEBPACK_IMPORTED_MODULE_0__["default"]),
     width: 2100
   }), new Platform({
@@ -637,12 +661,20 @@ function init() {
     x: 0,
     y: 0,
     width: 1600,
+    height: 700,
     image: createImage(_assets_tree_png__WEBPACK_IMPORTED_MODULE_3__["default"])
   }), new GenericObject({
     x: 1800,
     y: 0,
     width: 1600,
+    height: 700,
     image: createImage(_assets_tree_png__WEBPACK_IMPORTED_MODULE_3__["default"])
+  }), new GenericObject({
+    x: 7000,
+    y: 580,
+    width: 320,
+    height: 400,
+    image: createImage(_assets_rocket_png__WEBPACK_IMPORTED_MODULE_5__["default"])
   })];
   stars = [new Star({
     x: 700,
@@ -699,19 +731,19 @@ function init() {
     height: 30,
     image: createImage(_assets_star_png__WEBPACK_IMPORTED_MODULE_4__["default"])
   }), new Star({
-    x: 3750,
-    y: 580,
-    width: 30,
-    height: 30,
-    image: createImage(_assets_star_png__WEBPACK_IMPORTED_MODULE_4__["default"])
-  }), new Star({
-    x: 3800,
-    y: 580,
-    width: 30,
-    height: 30,
-    image: createImage(_assets_star_png__WEBPACK_IMPORTED_MODULE_4__["default"])
-  }), new Star({
     x: 3850,
+    y: 580,
+    width: 30,
+    height: 30,
+    image: createImage(_assets_star_png__WEBPACK_IMPORTED_MODULE_4__["default"])
+  }), new Star({
+    x: 4000,
+    y: 330,
+    width: 30,
+    height: 30,
+    image: createImage(_assets_star_png__WEBPACK_IMPORTED_MODULE_4__["default"])
+  }), new Star({
+    x: 4250,
     y: 580,
     width: 30,
     height: 30,
@@ -729,24 +761,34 @@ function init() {
     height: 30,
     image: createImage(_assets_star_png__WEBPACK_IMPORTED_MODULE_4__["default"])
   }), new Star({
-    x: 6550,
-    y: 580,
+    x: 6450,
+    y: 330,
     width: 30,
     height: 30,
     image: createImage(_assets_star_png__WEBPACK_IMPORTED_MODULE_4__["default"])
   }), new Star({
-    x: 6600,
-    y: 580,
+    x: 6750,
+    y: 330,
     width: 30,
     height: 30,
     image: createImage(_assets_star_png__WEBPACK_IMPORTED_MODULE_4__["default"])
   }), new Star({
-    x: 6650,
-    y: 580,
+    x: 7050,
+    y: 330,
     width: 30,
     height: 30,
     image: createImage(_assets_star_png__WEBPACK_IMPORTED_MODULE_4__["default"])
+  }), new Star({
+    x: 7350,
+    y: 300,
+    width: 320,
+    height: 400,
+    image: createImage(_assets_rocket_png__WEBPACK_IMPORTED_MODULE_5__["default"])
   })];
+  var highScore = getHighScore();
+  document.getElementById("high-score").textContent = "High Score: " + highScore;
+  displayHighScore(); // Call displayHighScore here to ensure it's displayed at the start of the game
+
   backgroundImg.onload = function () {
     canvas.width = backgroundImg.width;
     canvas.height = backgroundImg.height;
@@ -765,6 +807,22 @@ function init() {
   };
   scrollOffset = 0;
   score = 0;
+  playerCanMove = true;
+}
+function getHighScore() {
+  var highScore = localStorage.getItem("highScore");
+  return highScore ? parseInt(highScore) : 0;
+}
+function playerWinsGame(score) {
+  saveHighScore(score);
+  displayHighScore(); // Call displayHighScore after setting a new high score
+}
+
+function saveHighScore(score) {
+  var highScore = getHighScore();
+  if (score > highScore) {
+    localStorage.setItem("highScore", score.toString());
+  }
 }
 
 //to loop the gravity
@@ -777,13 +835,12 @@ function animate() {
 
   // Create a variable to keep track of stars to be removed
   var starsToRemove = [];
-  console.log(player.position.x);
   genericObjects.forEach(function (genericObject) {
     genericObject.draw();
   });
   stars.forEach(function (star) {
-    // Check for star collisions
-    if (player.position.x * 2 - 10 < star.position.x + star.width && player.position.x * 2 - 10 + player.width > star.position.x && player.position.y * 2 < star.position.y + star.height && player.position.y * 2 + player.height > star.position.y) {
+    var playerX = player.position.x + scrollOffset; // Adjust for scroll offset
+    if (playerX < star.position.x + star.width && playerX + player.width > star.position.x && player.position.y < star.position.y + star.height && player.position.y + player.height > star.position.y) {
       // Player has touched a star
       starsToRemove.push(star);
       score++; // Increment the score
@@ -802,34 +859,35 @@ function animate() {
   player.update();
 
   // Draw the score on the canvas
-  c.fillStyle = "black";
+  c.fillStyle = "white";
   c.font = "24px Arial";
   c.fillText("Score: " + score, 20, 40);
-  console.log;
 
   //for smooth movement
-  if (keys.right.pressed && player.position.x < 4000) {
-    player.velocity.x = 5;
-  } else if (keys.left.pressed && player.position.x > 100 || keys.left.pressed && scrollOffset === 0 && player.position.x > 0) {
-    player.velocity.x = -5;
-  } else {
-    player.velocity.x = 0;
+  if (playerCanMove) {
+    if (keys.right.pressed && player.position.x < 400) {
+      player.velocity.x = 5;
+    } else if (keys.left.pressed && player.position.x > 100 || keys.left.pressed && scrollOffset === 0 && player.position.x > 0) {
+      player.velocity.x = -5;
+    } else {
+      player.velocity.x = 0;
+    }
   }
   if (keys.right.pressed) {
-    scrollOffset += 10;
+    scrollOffset += 5;
     platforms.forEach(function (platform) {
-      platform.position.x -= 10;
+      platform.position.x -= 5;
     });
     genericObjects.forEach(function (genericObject) {
-      genericObject.position.x -= 6.6;
+      genericObject.position.x -= 3;
     });
   } else if (keys.left.pressed && scrollOffset > 0) {
-    scrollOffset -= 10;
+    scrollOffset -= 5;
     platforms.forEach(function (platform) {
-      platform.position.x += 10;
+      platform.position.x += 5;
     });
     genericObjects.forEach(function (genericObject) {
-      genericObject.position.x += 6.6;
+      genericObject.position.x += 3;
     });
   }
 
@@ -838,16 +896,17 @@ function animate() {
   platforms.forEach(function (platform) {
     if (player.position.y + player.height <= platform.position.y && player.position.y + player.height + player.velocity.y >= platform.position.y && player.position.x + player.width >= platform.position.x && player.position.x <= platform.position.x + platform.width) {
       player.velocity.y = 0;
-      // this.position.y = platform.position.y - this.height;
     }
   });
 
   //to create win scenerio
-  if (scrollOffset == 6500) {
-    console.log("you win");
+  if (scrollOffset == 6800) {
+    playerCanMove = false;
+    playerWinsGame(score);
+    alert('ww');
   }
 
-  // to craete lose scenerio
+  // to create lose scenerio
   if (player.position.y > canvas.height) {
     init();
   }
@@ -856,8 +915,7 @@ animate();
 
 //to check which key is pressed
 addEventListener("keydown", function (event) {
-  // console.log(event);
-  // event.preventDefault();
+  event.preventDefault();
   switch (event.keyCode) {
     case 39:
       //right
@@ -875,12 +933,10 @@ addEventListener("keydown", function (event) {
       break;
     case 38:
       //up
-      // keys.top.pressed = true;
-      //to create jump effect
       if (!player.isJumping) {
-        player.jump(); // Call the jump method if not currently jumping
+        // Call the jump method if not currently jumping
+        player.jump();
       }
-
       break;
     case 40:
       //down
@@ -888,7 +944,6 @@ addEventListener("keydown", function (event) {
   }
 });
 addEventListener("keyup", function (event) {
-  // console.log(event);
   event.preventDefault();
   switch (event.keyCode) {
     case 39:
@@ -907,9 +962,6 @@ addEventListener("keyup", function (event) {
       break;
     case 38:
       //up
-      // keys.top.pressed = false;
-      //to create jump effect
-      // player.velocity.y = 0;
       break;
     case 40:
       //down

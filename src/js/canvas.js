@@ -3,22 +3,20 @@ import jumpingPlatform from "../../assets/jumpingPlatform.png";
 import background from "../../assets/background.jpg";
 import trees from "../../assets/tree.png";
 import star from "../../assets/star.png";
+import spaceShip from "../../assets/rocket.png";
 
 import mariorunRight from "../../assets/mariorunRight.png";
 import mariorunLeft from "../../assets/mariorunLeft.png";
 import mariostandingRight from "../../assets/mariostandingRight.png";
 import mariostandingLeft from "../../assets/mariostandingLeft.png";
+
 const canvas = document.querySelector("canvas");
 const backgroundImg = createImage(background);
-// window.addEventListener('scroll', () => {
-//   window.scrollTo(0, 0); // Scroll back to the top of the page
-// });
-
 const c = canvas.getContext("2d");
-// console.log(c);
+const gravity = 0.98;
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-const gravity = 0.98;
 
 //Creating Player
 class Player {
@@ -34,7 +32,7 @@ class Player {
     };
     this.width = 66;
     this.height = 150;
-    this.isJumping = false
+    this.isJumping = false;
 
     this.image = createImage(mariostandingRight);
     this.frames = 0;
@@ -56,16 +54,15 @@ class Player {
     this.currentSprite = this.sprites.stand.right;
     this.currentCropWidth = 177;
   }
-  jump(){
-    if(!this.isJumping){
-      this.velocity.y = -23
-      this.isJumping = true
-
+  jump() {
+    if (!this.isJumping) {
+      this.velocity.y = -24;
+      this.isJumping = true;
     }
   }
 
-  resetJumpInitiation(){
-    this.isJumpInitiated = false
+  resetJumpInitiation() {
+    this.isJumpInitiated = false;
   }
 
   draw() {
@@ -120,7 +117,7 @@ class Player {
         player.velocity.y = 0;
         this.isJumping = false;
       }
-    }); 
+    });
   }
 }
 
@@ -199,25 +196,25 @@ let player = new Player();
 let platforms = [
   new Platform({
     x: 0,
-    y: 680,
+    y: 700,
     image: createImage(platform),
     width: 1000,
   }),
   new Platform({
     x: 1300,
-    y: 680,
+    y: 700,
     image: createImage(platform),
     width: 1000,
   }),
   new Platform({
     x: 3200,
-    y: 680,
+    y: 700,
     image: createImage(platform),
     width: 2100,
   }),
   new Platform({
-    x: 6000,
-    y: 680,
+    x: 5700,
+    y: 700,
     image: createImage(platform),
     width: 2100,
   }),
@@ -272,126 +269,132 @@ let genericObjects = [
 
 let stars = [
   new Star({
-    x:700,
-    y:580,
+    x: 700,
+    y: 580,
     width: 30,
     height: 30,
-    image: createImage(star)
+    image: createImage(star),
   }),
   new Star({
-    x:750,
-    y:580,
+    x: 750,
+    y: 580,
     width: 30,
     height: 30,
-    image: createImage(star)
+    image: createImage(star),
   }),
   new Star({
-    x:800,
-    y:580,
+    x: 800,
+    y: 580,
     width: 30,
     height: 30,
-    image: createImage(star)
+    image: createImage(star),
   }),
   new Star({
-    x:1150,
-    y:330,
+    x: 1150,
+    y: 330,
     width: 30,
     height: 30,
-    image: createImage(star)
+    image: createImage(star),
   }),
   new Star({
-    x:2250,
-    y:580,
+    x: 2250,
+    y: 580,
     width: 30,
     height: 30,
-    image: createImage(star)
+    image: createImage(star),
   }),
   new Star({
-    x:2450,
-    y:330,
+    x: 2450,
+    y: 330,
     width: 30,
     height: 30,
-    image: createImage(star)
+    image: createImage(star),
   }),
   new Star({
-    x:2750,
-    y:130,
+    x: 2750,
+    y: 130,
     width: 30,
     height: 30,
-    image: createImage(star)
+    image: createImage(star),
   }),
   new Star({
-    x:3000,
-    y:330,
+    x: 3000,
+    y: 330,
     width: 30,
     height: 30,
-    image: createImage(star)
+    image: createImage(star),
   }),
   new Star({
-    x:3220,
-    y:580,
+    x: 3220,
+    y: 580,
     width: 30,
     height: 30,
-    image: createImage(star)
+    image: createImage(star),
   }),
   new Star({
-    x:3750,
-    y:580,
+    x: 3850,
+    y: 580,
     width: 30,
     height: 30,
-    image: createImage(star)
+    image: createImage(star),
   }),
   new Star({
-    x:3800,
-    y:580,
+    x: 4000,
+    y: 330,
     width: 30,
     height: 30,
-    image: createImage(star)
+    image: createImage(star),
   }),
   new Star({
-    x:3850,
-    y:580,
+    x: 4250,
+    y: 580,
     width: 30,
     height: 30,
-    image: createImage(star)
+    image: createImage(star),
   }),
   new Star({
-    x:5100,
-    y:330,
+    x: 5100,
+    y: 330,
     width: 30,
     height: 30,
-    image: createImage(star)
+    image: createImage(star),
   }),
   new Star({
-    x:5300,
-    y:580,
+    x: 5300,
+    y: 580,
     width: 30,
     height: 30,
-    image: createImage(star)
+    image: createImage(star),
   }),
   new Star({
-    x:6550,
-    y:580,
+    x: 6450,
+    y: 330,
     width: 30,
     height: 30,
-    image: createImage(star)
+    image: createImage(star),
   }),
   new Star({
-    x:6600,
-    y:580,
+    x: 6650,
+    y: 330,
     width: 30,
     height: 30,
-    image: createImage(star)
+    image: createImage(star),
   }),
   new Star({
-    x:6650,
-    y:580,
+    x: 6850,
+    y: 330,
     width: 30,
     height: 30,
-    image: createImage(star)
+    image: createImage(star),
   }),
-]
-
+  new Star({
+    x: 7350,
+    y: 300,
+    width: 320,
+    height: 400,
+    image: createImage(spaceShip),
+  }),
+];
 const keys = {
   right: {
     pressed: false,
@@ -406,6 +409,15 @@ const keys = {
 
 let scrollOffset = 0;
 let score = 0;
+let playerCanMove = true;
+
+function displayHighScore() {
+  const highScore = getHighScore();
+  const highScoreElement = document.getElementById("high-score");
+  if (highScoreElement) {
+    highScoreElement.textContent = "High Score: " + highScore;
+  }
+}
 
 function init() {
   player = new Player();
@@ -413,25 +425,25 @@ function init() {
   platforms = [
     new Platform({
       x: 0,
-      y: 680,
+      y: 700,
       image: createImage(platform),
       width: 1000,
     }),
     new Platform({
       x: 1300,
-      y: 680,
+      y: 700,
       image: createImage(platform),
       width: 1000,
     }),
     new Platform({
       x: 3200,
-      y: 680,
+      y: 700,
       image: createImage(platform),
       width: 2100,
     }),
     new Platform({
-      x: 6000,
-      y: 680,
+      x: 5700,
+      y: 700,
       image: createImage(platform),
       width: 2100,
     }),
@@ -472,137 +484,159 @@ function init() {
       x: 0,
       y: 0,
       width: 1600,
+      height: 700,
       image: createImage(trees),
     }),
     new GenericObject({
       x: 1800,
       y: 0,
       width: 1600,
+      height: 700,
       image: createImage(trees),
+    }),
+    new GenericObject({
+      x: 7000,
+      y: 580,
+      width: 320,
+      height: 400,
+      image: createImage(spaceShip),
     }),
   ];
 
   stars = [
     new Star({
-      x:700,
-      y:580,
+      x: 700,
+      y: 580,
       width: 30,
       height: 30,
-      image: createImage(star)
+      image: createImage(star),
     }),
     new Star({
-      x:750,
-      y:580,
+      x: 750,
+      y: 580,
       width: 30,
       height: 30,
-      image: createImage(star)
+      image: createImage(star),
     }),
     new Star({
-      x:800,
-      y:580,
+      x: 800,
+      y: 580,
       width: 30,
       height: 30,
-      image: createImage(star)
+      image: createImage(star),
     }),
     new Star({
-      x:1150,
-      y:330,
+      x: 1150,
+      y: 330,
       width: 30,
       height: 30,
-      image: createImage(star)
+      image: createImage(star),
     }),
     new Star({
-      x:2250,
-      y:580,
+      x: 2250,
+      y: 580,
       width: 30,
       height: 30,
-      image: createImage(star)
+      image: createImage(star),
     }),
     new Star({
-      x:2450,
-      y:330,
+      x: 2450,
+      y: 330,
       width: 30,
       height: 30,
-      image: createImage(star)
+      image: createImage(star),
     }),
     new Star({
-      x:2750,
-      y:130,
+      x: 2750,
+      y: 130,
       width: 30,
       height: 30,
-      image: createImage(star)
+      image: createImage(star),
     }),
     new Star({
-      x:3000,
-      y:330,
+      x: 3000,
+      y: 330,
       width: 30,
       height: 30,
-      image: createImage(star)
+      image: createImage(star),
     }),
     new Star({
-      x:3220,
-      y:580,
+      x: 3220,
+      y: 580,
       width: 30,
       height: 30,
-      image: createImage(star)
+      image: createImage(star),
     }),
     new Star({
-      x:3750,
-      y:580,
+      x: 3850,
+      y: 580,
       width: 30,
       height: 30,
-      image: createImage(star)
+      image: createImage(star),
     }),
     new Star({
-      x:3800,
-      y:580,
+      x: 4000,
+      y: 330,
       width: 30,
       height: 30,
-      image: createImage(star)
+      image: createImage(star),
     }),
     new Star({
-      x:3850,
-      y:580,
+      x: 4250,
+      y: 580,
       width: 30,
       height: 30,
-      image: createImage(star)
+      image: createImage(star),
     }),
     new Star({
-      x:5100,
-      y:330,
+      x: 5100,
+      y: 330,
       width: 30,
       height: 30,
-      image: createImage(star)
+      image: createImage(star),
     }),
     new Star({
-      x:5300,
-      y:580,
+      x: 5300,
+      y: 580,
       width: 30,
       height: 30,
-      image: createImage(star)
+      image: createImage(star),
     }),
     new Star({
-      x:6550,
-      y:580,
+      x: 6450,
+      y: 330,
       width: 30,
       height: 30,
-      image: createImage(star)
+      image: createImage(star),
     }),
     new Star({
-      x:6600,
-      y:580,
+      x: 6750,
+      y: 330,
       width: 30,
       height: 30,
-      image: createImage(star)
+      image: createImage(star),
     }),
     new Star({
-      x:6650,
-      y:580,
+      x: 7050,
+      y: 330,
       width: 30,
       height: 30,
-      image: createImage(star)
+      image: createImage(star),
+    }),
+    new Star({
+      x: 7350,
+      y: 300,
+      width: 320,
+      height: 400,
+      image: createImage(spaceShip),
     }),
   ];
+
+  const highScore = getHighScore();
+  document.getElementById("high-score").textContent =
+    "High Score: " + highScore;
+
+  displayHighScore(); // Call displayHighScore here to ensure it's displayed at the start of the game
 
   backgroundImg.onload = function () {
     canvas.width = backgroundImg.width;
@@ -624,6 +658,24 @@ function init() {
 
   scrollOffset = 0;
   score = 0;
+  playerCanMove = true;
+}
+
+function getHighScore() {
+  const highScore = localStorage.getItem("highScore");
+  return highScore ? parseInt(highScore) : 0;
+}
+
+function playerWinsGame(score) {
+  saveHighScore(score);
+  displayHighScore(); // Call displayHighScore after setting a new high score
+}
+
+function saveHighScore(score) {
+  const highScore = getHighScore();
+  if (score > highScore) {
+    localStorage.setItem("highScore", score.toString());
+  }
 }
 
 //to loop the gravity
@@ -637,19 +689,18 @@ function animate() {
 
   // Create a variable to keep track of stars to be removed
   let starsToRemove = [];
-  console.log(player.position.x);
 
   genericObjects.forEach((genericObject) => {
     genericObject.draw();
   });
 
   stars.forEach((star) => {
-    // Check for star collisions
+    const playerX = player.position.x + scrollOffset; // Adjust for scroll offset
     if (
-      player.position.x*2 -10 < star.position.x + star.width &&
-      player.position.x*2 -10 + player.width > star.position.x &&
-      player.position.y*2 < star.position.y + star.height &&
-      player.position.y*2 + player.height > star.position.y
+      playerX < star.position.x + star.width &&
+      playerX + player.width > star.position.x &&
+      player.position.y < star.position.y + star.height &&
+      player.position.y + player.height > star.position.y
     ) {
       // Player has touched a star
       starsToRemove.push(star);
@@ -669,40 +720,41 @@ function animate() {
   player.update();
 
   // Draw the score on the canvas
-  c.fillStyle = "black";
+  c.fillStyle = "white";
   c.font = "24px Arial";
   c.fillText("Score: " + score, 20, 40);
-  console.log
 
   //for smooth movement
-  if (keys.right.pressed && player.position.x < 4000) {
-    player.velocity.x = 5;
-  } else if (
-    (keys.left.pressed && player.position.x > 100) ||
-    (keys.left.pressed && scrollOffset === 0 && player.position.x > 0)
-  ) {
-    player.velocity.x = -5;
-  } else {
-    player.velocity.x = 0;
+  if (playerCanMove) {
+    if (keys.right.pressed && player.position.x < 400) {
+      player.velocity.x = 5;
+    } else if (
+      (keys.left.pressed && player.position.x > 100) ||
+      (keys.left.pressed && scrollOffset === 0 && player.position.x > 0)
+    ) {
+      player.velocity.x = -5;
+    } else {
+      player.velocity.x = 0;
+    }
   }
 
   if (keys.right.pressed) {
-    scrollOffset += 10;
+    scrollOffset += 5;
     platforms.forEach((platform) => {
-      platform.position.x -= 10;
+      platform.position.x -= 5;
     });
 
     genericObjects.forEach((genericObject) => {
-      genericObject.position.x -= 6.6;
+      genericObject.position.x -= 3;
     });
   } else if (keys.left.pressed && scrollOffset > 0) {
-    scrollOffset -= 10;
+    scrollOffset -= 5;
 
     platforms.forEach((platform) => {
-      platform.position.x += 10;
+      platform.position.x += 5;
     });
     genericObjects.forEach((genericObject) => {
-      genericObject.position.x += 6.6;
+      genericObject.position.x += 3;
     });
   }
 
@@ -717,16 +769,17 @@ function animate() {
       player.position.x <= platform.position.x + platform.width
     ) {
       player.velocity.y = 0;
-      // this.position.y = platform.position.y - this.height;
     }
   });
 
   //to create win scenerio
-  if (scrollOffset == 6500) {
-    console.log("you win");
+  if (scrollOffset == 6800) {
+    playerCanMove = false;
+    playerWinsGame(score);
+    alert('ww')
   }
 
-  // to craete lose scenerio
+  // to create lose scenerio
   if (player.position.y > canvas.height) {
     init();
   }
@@ -735,8 +788,7 @@ animate();
 
 //to check which key is pressed
 addEventListener("keydown", (event) => {
-  // console.log(event);
-  // event.preventDefault();
+  event.preventDefault();
   switch (event.keyCode) {
     case 39:
       //right
@@ -756,10 +808,9 @@ addEventListener("keydown", (event) => {
 
     case 38:
       //up
-      // keys.top.pressed = true;
-      //to create jump effect
       if (!player.isJumping) {
-        player.jump(); // Call the jump method if not currently jumping
+        // Call the jump method if not currently jumping
+        player.jump();
       }
       break;
 
@@ -770,7 +821,6 @@ addEventListener("keydown", (event) => {
 });
 
 addEventListener("keyup", (event) => {
-  // console.log(event);
   event.preventDefault();
   switch (event.keyCode) {
     case 39:
@@ -791,9 +841,6 @@ addEventListener("keyup", (event) => {
 
     case 38:
       //up
-      // keys.top.pressed = false;
-      //to create jump effect
-      // player.velocity.y = 0;
       break;
 
     case 40:
