@@ -9,12 +9,37 @@ import mariorunRight from "../../assets/mariorunRight.png";
 import mariorunLeft from "../../assets/mariorunLeft.png";
 import mariostandingRight from "../../assets/mariostandingRight.png";
 import mariostandingLeft from "../../assets/mariostandingLeft.png";
+// import bgAudio from "../../assets/BgMusic.mp3";
 
 const canvas = document.querySelector("canvas");
 const backgroundImg = createImage(background);
 const c = canvas.getContext("2d");
 const gravity = 0.98;
 const youWinSection = document.getElementById("you-win-container");
+
+
+// const playButton = document.getElementById('playButton');
+// const audioElement = document.getElementById('audioElement');
+
+// audioElement.src = bgAudio;
+
+// // Track the audio playing state
+// let isAudioPlaying = false;
+
+// // Add an event listener to play or pause the audio when the button is clicked
+// playButton.addEventListener('click', () => {
+//   if (audioElement.src && audioElement.src !== '') {
+//     audioElement.play()
+//       .then(() => {
+//         playButton.textContent = 'Pause Audio';
+//       })
+//       .catch((error) => {
+//         console.error('Error playing audio:', error);
+//       });
+//   } else {
+//     console.error('No supported sources found for the audio element.');
+//   }
+// });
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -59,6 +84,7 @@ class Player {
     if (!this.isJumping) {
       this.velocity.y = -24;
       this.isJumping = true;
+      // audio.play();
     }
   }
 
@@ -420,6 +446,17 @@ function displayHighScore() {
   }
 }
 
+// // Function to play the background music
+// function playBackgroundMusic() {
+//   backgroundMusic.play();
+// }
+
+// // Function to stop the background music
+// function stopBackgroundMusic() {
+//   backgroundMusic.pause();
+//   backgroundMusic.currentTime = 0; // Reset the audio to the beginning
+// }
+
 function init() {
   player = new Player();
   //to create multiple platforms
@@ -743,7 +780,6 @@ function animate() {
       platforms.forEach((platform) => {
         platform.position.x -= 5;
       });
-
       genericObjects.forEach((genericObject) => {
         genericObject.position.x -= 3;
       });
@@ -773,8 +809,6 @@ function animate() {
     }
   });
 
-  console.log(scrollOffset);
-
   //to create win scenerio
   if (scrollOffset == 6800) {
     playerCanMove = false;
@@ -788,13 +822,14 @@ function animate() {
 
     const highestScoreElement = document.getElementById("highest-score");
     const highScore = getHighScore();
-    highestScoreElement.textContent =  highScore;
+    highestScoreElement.textContent = highScore;
   }
 
   // to create lose scenerio
   if (player.position.y > canvas.height) {
     init();
   }
+  // stopBackgroundMusic();
 }
 animate();
 
@@ -866,6 +901,6 @@ playAgainButton.addEventListener("click", () => {
   // Reset the game when the "Play Again" button is clicked
   youWinSection.style.display = "none"; // Hide the "You Win" section
   playerCanMove = true; // Allow player movement again
-  alert('playagain')
+  alert("playagain");
   init(); // Reset the game
 });

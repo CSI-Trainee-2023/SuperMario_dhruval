@@ -251,11 +251,37 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 
 
 
+// import bgAudio from "../../assets/BgMusic.mp3";
+
 var canvas = document.querySelector("canvas");
 var backgroundImg = createImage(_assets_background_jpg__WEBPACK_IMPORTED_MODULE_2__["default"]);
 var c = canvas.getContext("2d");
 var gravity = 0.98;
 var youWinSection = document.getElementById("you-win-container");
+
+// const playButton = document.getElementById('playButton');
+// const audioElement = document.getElementById('audioElement');
+
+// audioElement.src = bgAudio;
+
+// // Track the audio playing state
+// let isAudioPlaying = false;
+
+// // Add an event listener to play or pause the audio when the button is clicked
+// playButton.addEventListener('click', () => {
+//   if (audioElement.src && audioElement.src !== '') {
+//     audioElement.play()
+//       .then(() => {
+//         playButton.textContent = 'Pause Audio';
+//       })
+//       .catch((error) => {
+//         console.error('Error playing audio:', error);
+//       });
+//   } else {
+//     console.error('No supported sources found for the audio element.');
+//   }
+// });
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
@@ -300,6 +326,7 @@ var Player = /*#__PURE__*/function () {
       if (!this.isJumping) {
         this.velocity.y = -24;
         this.isJumping = true;
+        // audio.play();
       }
     }
   }, {
@@ -609,6 +636,18 @@ function displayHighScore() {
     highScoreElement.textContent = "High Score: " + highScore;
   }
 }
+
+// // Function to play the background music
+// function playBackgroundMusic() {
+//   backgroundMusic.play();
+// }
+
+// // Function to stop the background music
+// function stopBackgroundMusic() {
+//   backgroundMusic.pause();
+//   backgroundMusic.currentTime = 0; // Reset the audio to the beginning
+// }
+
 function init() {
   player = new Player();
   //to create multiple platforms
@@ -899,7 +938,6 @@ function animate() {
       player.velocity.y = 0;
     }
   });
-  console.log(scrollOffset);
 
   //to create win scenerio
   if (scrollOffset == 6800) {
@@ -920,7 +958,9 @@ function animate() {
   if (player.position.y > canvas.height) {
     init();
   }
+  // stopBackgroundMusic();
 }
+
 animate();
 
 //to check which key is pressed
@@ -983,7 +1023,7 @@ playAgainButton.addEventListener("click", function () {
   // Reset the game when the "Play Again" button is clicked
   youWinSection.style.display = "none"; // Hide the "You Win" section
   playerCanMove = true; // Allow player movement again
-  alert('playagain');
+  alert("playagain");
   init(); // Reset the game
 });
 
