@@ -258,30 +258,28 @@ var backgroundImg = createImage(_assets_background_jpg__WEBPACK_IMPORTED_MODULE_
 var c = canvas.getContext("2d");
 var gravity = 0.98;
 var youWinSection = document.getElementById("you-win-container");
-
-// const playButton = document.getElementById('playButton');
-// const audioElement = document.getElementById('audioElement');
-
-// audioElement.src = bgAudio;
-
-// // Track the audio playing state
-// let isAudioPlaying = false;
-
-// // Add an event listener to play or pause the audio when the button is clicked
-// playButton.addEventListener('click', () => {
-//   if (audioElement.src && audioElement.src !== '') {
-//     audioElement.play()
-//       .then(() => {
-//         playButton.textContent = 'Pause Audio';
-//       })
-//       .catch((error) => {
-//         console.error('Error playing audio:', error);
-//       });
-//   } else {
-//     console.error('No supported sources found for the audio element.');
-//   }
-// });
-
+var bgAudio = document.getElementById("bgAudio");
+function stop() {
+  console.log("stopBackgroundMusic");
+  bgAudio.pause();
+  bgAudio.currentTime = 0;
+}
+function play() {
+  console.log("playBackgroundMusic");
+  bgAudio.play();
+}
+document.getElementById("play-again-button").addEventListener("click", function () {
+  stop();
+});
+document.addEventListener("keydown", function (event) {
+  console.log("HI");
+  if (event.key === "ArrowRight") {
+    play();
+  }
+  if (event.key === "a") {
+    stop();
+  }
+});
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 

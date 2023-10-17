@@ -16,30 +16,29 @@ const backgroundImg = createImage(background);
 const c = canvas.getContext("2d");
 const gravity = 0.98;
 const youWinSection = document.getElementById("you-win-container");
+const bgAudio = document.getElementById("bgAudio");
 
-
-// const playButton = document.getElementById('playButton');
-// const audioElement = document.getElementById('audioElement');
-
-// audioElement.src = bgAudio;
-
-// // Track the audio playing state
-// let isAudioPlaying = false;
-
-// // Add an event listener to play or pause the audio when the button is clicked
-// playButton.addEventListener('click', () => {
-//   if (audioElement.src && audioElement.src !== '') {
-//     audioElement.play()
-//       .then(() => {
-//         playButton.textContent = 'Pause Audio';
-//       })
-//       .catch((error) => {
-//         console.error('Error playing audio:', error);
-//       });
-//   } else {
-//     console.error('No supported sources found for the audio element.');
-//   }
-// });
+function stop() {
+  console.log("stopBackgroundMusic");
+  bgAudio.pause();
+  bgAudio.currentTime = 0;
+}
+function play() {
+  console.log("playBackgroundMusic");
+  bgAudio.play();
+}
+document.getElementById("play-again-button").addEventListener("click", () => {
+  stop();
+});
+document.addEventListener("keydown", (event) => {
+  console.log("HI");
+  if (event.key === "ArrowRight") {
+    play();
+  }
+  if (event.key === "a") {
+    stop();
+  }
+});
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
