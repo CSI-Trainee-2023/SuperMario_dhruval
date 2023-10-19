@@ -251,32 +251,35 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 
 
 
-// import bgAudio from "../../assets/BgMusic.mp3";
-
 var canvas = document.querySelector("canvas");
 var backgroundImg = createImage(_assets_background_jpg__WEBPACK_IMPORTED_MODULE_2__["default"]);
 var c = canvas.getContext("2d");
 var gravity = 0.98;
 var youWinSection = document.getElementById("you-win-container");
 var bgAudio = document.getElementById("bgAudio");
+var gameOver = document.getElementById("gameOver");
+var starWin = document.getElementById("starWin");
+var Jump = document.getElementById("Jump");
+var Rocket = document.getElementById("rocket");
+var Win = document.getElementById("Win");
 function stop() {
-  console.log("stopBackgroundMusic");
   bgAudio.pause();
+  gameOver.pause();
   bgAudio.currentTime = 0;
 }
 function play() {
-  console.log("playBackgroundMusic");
   bgAudio.play();
 }
-document.getElementById("play-again-button").addEventListener("click", function () {
-  stop();
-});
+
+// document.getElementById("play-again-button").addEventListener("click", () => {
+//   stop();
+// });
+
 document.addEventListener("keydown", function (event) {
-  console.log("HI");
   if (event.key === "ArrowRight") {
     play();
   }
-  if (event.key === "a") {
+  if (event.key === "m") {
     stop();
   }
 });
@@ -294,7 +297,7 @@ var Player = /*#__PURE__*/function () {
     //sets the velocity of gravity
     this.velocity = {
       x: 0,
-      y: 0
+      y: 1
     };
     this.width = 66;
     this.height = 150;
@@ -627,6 +630,7 @@ var keys = {
 var scrollOffset = 0;
 var score = 0;
 var playerCanMove = true;
+var winMusicPlayed = false;
 function displayHighScore() {
   var highScore = getHighScore();
   var highScoreElement = document.getElementById("high-score");
@@ -634,18 +638,6 @@ function displayHighScore() {
     highScoreElement.textContent = "High Score: " + highScore;
   }
 }
-
-// // Function to play the background music
-// function playBackgroundMusic() {
-//   backgroundMusic.play();
-// }
-
-// // Function to stop the background music
-// function stopBackgroundMusic() {
-//   backgroundMusic.pause();
-//   backgroundMusic.currentTime = 0; // Reset the audio to the beginning
-// }
-
 function init() {
   player = new Player();
   //to create multiple platforms
@@ -846,6 +838,7 @@ function init() {
   scrollOffset = 0;
   score = 0;
   playerCanMove = true;
+  winMusicPlayed = false;
 }
 function getHighScore() {
   var highScore = localStorage.getItem("highScore");
@@ -879,6 +872,7 @@ function animate() {
   stars.forEach(function (star) {
     var playerX = player.position.x + scrollOffset; // Adjust for scroll offset
     if (playerX < star.position.x + star.width && playerX + player.width > star.position.x && player.position.y < star.position.y + star.height && player.position.y + player.height > star.position.y) {
+      starWin.play();
       // Player has touched a star
       starsToRemove.push(star);
       score++; // Increment the score
@@ -938,11 +932,13 @@ function animate() {
   });
 
   //to create win scenerio
-  if (scrollOffset == 6800) {
+  if (scrollOffset == 6800 && !winMusicPlayed) {
     playerCanMove = false;
-    // playAgainButton.style.display = "none";
     playerWinsGame(score);
     youWinSection.style.display = "block";
+    stop();
+    Win.play();
+    winMusicPlayed = true;
 
     // Display the current and highest scores
     var currentScoreElement = document.getElementById("current-score");
@@ -954,11 +950,10 @@ function animate() {
 
   // to create lose scenerio
   if (player.position.y > canvas.height) {
+    gameOver.play();
     init();
   }
-  // stopBackgroundMusic();
 }
-
 animate();
 
 //to check which key is pressed
@@ -984,6 +979,7 @@ addEventListener("keydown", function (event) {
       if (!player.isJumping) {
         // Call the jump method if not currently jumping
         player.jump();
+        Jump.play();
       }
       break;
     case 40:

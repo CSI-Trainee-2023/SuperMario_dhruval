@@ -9,7 +9,6 @@ import mariorunRight from "../../assets/mariorunRight.png";
 import mariorunLeft from "../../assets/mariorunLeft.png";
 import mariostandingRight from "../../assets/mariostandingRight.png";
 import mariostandingLeft from "../../assets/mariostandingLeft.png";
-// import bgAudio from "../../assets/BgMusic.mp3";
 
 const canvas = document.querySelector("canvas");
 const backgroundImg = createImage(background);
@@ -17,25 +16,31 @@ const c = canvas.getContext("2d");
 const gravity = 0.98;
 const youWinSection = document.getElementById("you-win-container");
 const bgAudio = document.getElementById("bgAudio");
+const gameOver = document.getElementById("gameOver");
+const starWin = document.getElementById("starWin");
+const Jump = document.getElementById("Jump");
+const Rocket = document.getElementById("rocket");
+const Win = document.getElementById("Win");
 
 function stop() {
-  console.log("stopBackgroundMusic");
   bgAudio.pause();
+  gameOver.pause();
   bgAudio.currentTime = 0;
 }
+
 function play() {
-  console.log("playBackgroundMusic");
-  bgAudio.play();
+  bgAudio.play();  
 }
-document.getElementById("play-again-button").addEventListener("click", () => {
-  stop();
-});
+
+// document.getElementById("play-again-button").addEventListener("click", () => {
+//   stop();
+// });
+
 document.addEventListener("keydown", (event) => {
-  console.log("HI");
   if (event.key === "ArrowRight") {
     play();
   }
-  if (event.key === "a") {
+  if (event.key === "m") {
     stop();
   }
 });
@@ -53,7 +58,7 @@ class Player {
     //sets the velocity of gravity
     this.velocity = {
       x: 0,
-      y: 0,
+      y: 1,
     };
     this.width = 66;
     this.height = 150;
@@ -436,6 +441,7 @@ const keys = {
 let scrollOffset = 0;
 let score = 0;
 let playerCanMove = true;
+let winMusicPlayed = false;
 
 function displayHighScore() {
   const highScore = getHighScore();
@@ -444,17 +450,6 @@ function displayHighScore() {
     highScoreElement.textContent = "High Score: " + highScore;
   }
 }
-
-// // Function to play the background music
-// function playBackgroundMusic() {
-//   backgroundMusic.play();
-// }
-
-// // Function to stop the background music
-// function stopBackgroundMusic() {
-//   backgroundMusic.pause();
-//   backgroundMusic.currentTime = 0; // Reset the audio to the beginning
-// }
 
 function init() {
   player = new Player();
@@ -696,6 +691,7 @@ function init() {
   scrollOffset = 0;
   score = 0;
   playerCanMove = true;
+  winMusicPlayed = false;
 }
 
 function getHighScore() {
@@ -739,6 +735,7 @@ function animate() {
       player.position.y < star.position.y + star.height &&
       player.position.y + player.height > star.position.y
     ) {
+      starWin.play();
       // Player has touched a star
       starsToRemove.push(star);
       score++; // Increment the score
@@ -809,11 +806,14 @@ function animate() {
   });
 
   //to create win scenerio
-  if (scrollOffset == 6800) {
+  if (scrollOffset == 6800 && !winMusicPlayed) {
     playerCanMove = false;
-    // playAgainButton.style.display = "none";
     playerWinsGame(score);
     youWinSection.style.display = "block";
+
+    stop();
+    Win.play();
+    winMusicPlayed = true;
 
     // Display the current and highest scores
     const currentScoreElement = document.getElementById("current-score");
@@ -826,9 +826,9 @@ function animate() {
 
   // to create lose scenerio
   if (player.position.y > canvas.height) {
+    gameOver.play();
     init();
   }
-  // stopBackgroundMusic();
 }
 animate();
 
@@ -857,6 +857,7 @@ addEventListener("keydown", (event) => {
       if (!player.isJumping) {
         // Call the jump method if not currently jumping
         player.jump();
+        Jump.play();
       }
       break;
 
